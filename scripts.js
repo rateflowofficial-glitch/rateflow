@@ -311,114 +311,123 @@ window.addEventListener('load', function () {
 // ===========================
 
 const AuthManager = {
-    STORAGE_KEY: 'burguertop_users',
-    SESSION_KEY: 'burguertop_current_user',
+    SESSION_KEY: 'burguertop_session_v2',
+    currentUser: null,
 
-    /**
-     * Inicializar autenticación
-     */
-    init() {
+    async init() {
+        // Restore session from localStorage if exists (for fast UI load)
+        const saved = localStorage.getItem(this.SESSION_KEY);
+        if (saved) {
+            this.currentUser = JSON.parse(saved);
+        }
+
+        // Listen to GunDB Auth State
+        gun.on('auth', async (ack) => {
+            const alias = ack.put.alias;
+            const pub = ack.soul.replace('~', '');
+
+            // Get detailed profile
+            const profile = await this.fetchUserProfile(pub);
+
+            this.currentUser = {
+                id: pub,
+                nombre: alias, // or profile.nombre
+                username: alias,
+                avatar: profile.avatar || null,
+                role: 'user', // Default
+                isLoggedIn: true,
+                ...profile
+            };
+
+            this.saveSessionLocal(this.currentUser);
+            this.updateNavigation();
+
+            // If on login page, redirect
+            if (window.location.pathname.includes('login.html')) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Initialize user session if we have stored keys? 
+        // Gun.js automatically tries to re-auth if keys are in sessionStorage (default behavior)
+        // We just update UI based on that.
         this.updateNavigation();
     },
 
-    /**
-     * Obtener usuarios registrados
-     */
-    getUsers() {
-        return JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || [];
-    },
-
-    /**
-     * Obtener usuario actual
-     */
-    getCurrentUser() {
-        return JSON.parse(localStorage.getItem(this.SESSION_KEY));
-    },
-
-    /**
-     * Verificar si hay usuario logueado
-     */
-    isLoggedIn() {
-        return !!this.getCurrentUser();
-    },
-
-    /**
-     * Registrar nuevo usuario
-     */
-    register(nombre, email, password) {
-        const users = this.getUsers();
-
-        // Verificar si email ya existe
-        if (users.some(u => u.email === email)) {
-            alert('El email ya está registrado.');
-            return false;
-        }
-
-        const newUser = {
-            id: Date.now().toString(),
-            nombre,
-            email,
-            password,
-            votes: [] // Historial de votos
-        };
-
-        users.push(newUser);
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users));
-
-        // Loguear automáticamente
-        this.login(email, password);
-        return true;
-    },
-
-    /**
-     * Iniciar sesión
-     */
-    login(email, password) {
-        // Credenciales Admin Hardcoded
-        if (email === 'admin@rateflow.com' && password === 'admin123') {
-            const adminUser = {
-                id: 'admin_root',
-                nombre: 'Admin User',
-                email: 'admin@rateflow.com',
-                role: 'admin',
-                avatar: null
-            };
-            localStorage.setItem(this.SESSION_KEY, JSON.stringify(adminUser));
-            this.updateNavigation();
-            return { success: true, role: 'admin' };
-        }
-
-        const users = this.getUsers();
-        const user = users.find(u => u.email === email && u.password === password);
-
-        if (user) {
-            localStorage.setItem(this.SESSION_KEY, JSON.stringify(user));
-            this.updateNavigation();
-            return { success: true, role: 'user' };
-        }
-        return { success: false };
-    },
-
-    /**
-     * Cerrar sesión
-     */
-    logout() {
-        localStorage.removeItem(this.SESSION_KEY);
-        window.location.reload();
-    },
-
-    /**
-     * Guardar cambios del usuario
-     */
-    saveUser(user) {
+    saveSessionLocal(user) {
         localStorage.setItem(this.SESSION_KEY, JSON.stringify(user));
+    },
 
-        // También actualizar en la lista global de usuarios
-        const users = this.getUsers();
-        const index = users.findIndex(u => u.id === user.id);
-        if (index !== -1) {
-            users[index] = user;
-            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users));
+    async fetchUserProfile(pub) {
+        return new Promise((resolve) => {
+            // Retrieve profile data from public node
+            gun.user(pub).get('profile').once((data) => {
+                resolve(data || {});
+            });
+        });
+    },
+
+    isLoggedIn() {
+        return !!this.currentUser; // Synchronous check for UI
+    },
+
+    getCurrentUser() {
+        return this.currentUser;
+    },
+
+    async login(email, password) {
+        return new Promise((resolve, reject) => {
+            // Gun uses Alias (username) not email usually, but we can treat email as alias
+            gun.user().auth(email, password, (ack) => {
+                if (ack.err) {
+                    reject(ack.err);
+                } else {
+                    resolve(ack);
+                }
+            });
+        });
+    },
+
+    async register(name, username, password, age) {
+        return new Promise((resolve, reject) => {
+            gun.user().create(username, password, (ack) => {
+                if (ack.err) {
+                    reject(ack.err);
+                } else {
+                    // Login immediately to set profile
+                    gun.user().auth(username, password, () => {
+                        // Save initial profile
+                        gun.user().get('profile').put({
+                            nombre: name,
+                            username: username,
+                            age: parseInt(age),
+                            joined: new Date().toISOString(),
+                            avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
+                        });
+                        resolve(ack);
+                    });
+                }
+            });
+        });
+    },
+
+    logout() {
+        gun.user().leave();
+        this.currentUser = null;
+        localStorage.removeItem(this.SESSION_KEY);
+        window.location.href = 'index.html';
+    },
+
+    saveUser(user) {
+        // UI calls this to update local state, but we should sync to Gun
+        if (this.currentUser) {
+            // Only update specific fields allowed
+            gun.user().get('profile').put({
+                avatar: user.avatar,
+                // Add other fields you want to sync
+            });
+            this.saveSessionLocal(user);
+            this.currentUser = user;
         }
     },
 
@@ -579,13 +588,13 @@ const AuthManager = {
             };
 
         } else {
-            // Mostrar Login en user-actions
-            const loginBtn = document.createElement('a');
-            loginBtn.href = 'login.html';
-            loginBtn.className = 'btn-outline pill small';
-            loginBtn.style.padding = '8px 20px';
-            loginBtn.textContent = 'Únete a la Comunidad';
-            userActions.appendChild(loginBtn);
+            // Mostrar Registro en user-actions
+            const registerBtn = document.createElement('a');
+            registerBtn.href = 'registro.html';
+            registerBtn.className = 'btn-outline pill small';
+            registerBtn.style.padding = '8px 20px';
+            registerBtn.textContent = 'Registrarse Gratis';
+            userActions.appendChild(registerBtn);
         }
     }
 };
@@ -2690,19 +2699,40 @@ const GamificationSystem = {
     },
 
     unlock(user, id) {
+        // Prevent re-unlocking if already exists locally
+        if (this.hasAchievement(user, id)) return;
+
         const ach = AchievementsData[id];
         if (!ach) return;
 
-        user.achievements.push({
+        const newAchievement = {
             id: id,
             date: new Date().toISOString()
-        });
+        };
+
+        // Update local state immediately for UI responsiveness
+        if (!user.achievements) user.achievements = [];
+        user.achievements.push(newAchievement);
+
+        // PERSIST TO GUNDB (Server)
+        // If we are unlocked for the current logged in user
+        if (AuthManager.getCurrentUser() && AuthManager.getCurrentUser().id === user.id) {
+            gun.user().get('achievements').set(newAchievement);
+
+            // Also publish to global feed for social bragging
+            db.get('global_feed').set({
+                type: 'achievement',
+                data: { ...newAchievement, userName: user.nombre },
+                content: `ha desbloqueado <strong>${ach.title}</strong>`,
+                timestamp: Date.now()
+            });
+        }
 
         NotificationSystem.showToast({
             title: '¡Logro Desbloqueado!',
             message: ach.title,
             icon: ach.icon,
-            type: 'achievement' // New type
+            type: 'achievement'
         });
     },
 

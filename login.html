@@ -141,7 +141,7 @@
 
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <input type="email" id="login-email" class="form-input" placeholder="Correo electrónico" required>
+                    <input type="text" id="login-username" class="form-input" placeholder="Nombre de usuario" required>
                 </div>
                 <div class="form-group">
                     <input type="password" id="login-pass" class="form-input" placeholder="Contraseña" required>
@@ -160,21 +160,25 @@
     </div>
 
     <script>
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
-            const email = document.getElementById('login-email').value;
+            const username = document.getElementById('login-username').value;
             const pass = document.getElementById('login-pass').value;
 
-            const res = AuthManager.login(email, pass);
+            try {
+                // Now await the GunDB login
+                const ack = await AuthManager.login(username, pass);
 
-            if (res.success) {
-                if (res.role === 'admin') {
-                    window.location.href = 'admin.html';
+                // If we get here, promise resolved (success)
+                if (ack.err) {
+                    alert('Error: ' + ack.err);
                 } else {
+                    // Check role (simplified for now, admin role in p2p requires more logic)
+                    // For now redirect to rankings
                     window.location.href = 'tema.html';
                 }
-            } else {
-                alert('Credenciales incorrectas');
+            } catch (err) {
+                alert('Error al iniciar sesión: ' + (err.message || err));
             }
         }
     </script>

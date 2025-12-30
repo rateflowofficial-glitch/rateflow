@@ -141,13 +141,19 @@
 
             <form onsubmit="handleRegister(event)">
                 <div class="form-group">
-                    <input type="text" id="reg-name" class="form-input" placeholder="Nombre de usuario" required>
+                    <input type="text" id="reg-name" class="form-input" placeholder="Nombre completo" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="reg-email" class="form-input" placeholder="Correo electrónico" required>
+                    <input type="text" id="reg-username" class="form-input" placeholder="Nombre de usuario (único)"
+                        required pattern="[a-zA-Z0-9_]{3,20}"
+                        title="3-20 caracteres, solo letras, números y guiones bajos">
                 </div>
                 <div class="form-group">
-                    <input type="password" id="reg-pass" class="form-input" placeholder="Contraseña" required>
+                    <input type="number" id="reg-age" class="form-input" placeholder="Edad" required min="13" max="120">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="reg-pass" class="form-input" placeholder="Contraseña" required
+                        minlength="6">
                 </div>
 
                 <button type="submit" class="btn-block"
@@ -163,15 +169,19 @@
     </div>
 
     <script>
-        function handleRegister(e) {
+        async function handleRegister(e) {
             e.preventDefault();
             const name = document.getElementById('reg-name').value;
-            const email = document.getElementById('reg-email').value;
+            const username = document.getElementById('reg-username').value;
+            const age = document.getElementById('reg-age').value;
             const pass = document.getElementById('reg-pass').value;
 
-            if (AuthManager.register(name, email, pass)) {
-                alert('Cuenta creada exitosamente');
+            try {
+                await AuthManager.register(name, username, pass, age);
+                alert('Cuenta creada exitosamente. Bienvenido a la red P2P.');
                 window.location.href = 'tema.html';
+            } catch (err) {
+                alert('Error al registrar: ' + (err.message || err));
             }
         }
     </script>
