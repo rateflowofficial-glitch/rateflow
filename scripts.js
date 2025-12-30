@@ -331,10 +331,11 @@ const AuthManager = {
 
             this.currentUser = {
                 id: pub,
-                nombre: alias, // or profile.nombre
+                nombre: profile.nombre || alias,
                 username: alias,
                 avatar: profile.avatar || null,
-                role: 'user', // Default
+                role: profile.role || 'user',
+                age: profile.age || null,
                 isLoggedIn: true,
                 ...profile
             };
@@ -342,9 +343,13 @@ const AuthManager = {
             this.saveSessionLocal(this.currentUser);
             this.updateNavigation();
 
-            // If on login page, redirect
+            // If on login page, redirect based on role
             if (window.location.pathname.includes('login.html')) {
-                window.location.href = 'index.html';
+                if (this.currentUser.role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'tema.html';
+                }
             }
         });
 
@@ -396,11 +401,15 @@ const AuthManager = {
                 } else {
                     // Login immediately to set profile
                     gun.user().auth(username, password, () => {
+                        // Detect admin role based on prefix
+                        const isAdmin = username.startsWith('ADMIN_');
+
                         // Save initial profile
                         gun.user().get('profile').put({
                             nombre: name,
                             username: username,
                             age: parseInt(age),
+                            role: isAdmin ? 'admin' : 'user',
                             joined: new Date().toISOString(),
                             avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
                         });
@@ -2468,14 +2477,51 @@ const AdminSystem = {
             const category = document.getElementById('v-cat').value;
             const price = document.getElementById('v-price').value;
             const description = document.getElementById('v-desc').value;
+            const logo = document.getElementById('v-logo').value;
+            const banner = document.getElementById('v-banner').value;
             const plan = document.getElementById('v-plan').value;
+            const hours = document.getElementById('v-hours').value;
 
-            if (!name || !address) return;
+            if (!name || !address) {
+                alert('Por favor completa el nombre y dirección del local.');
+                return;
+            }
 
-            // En un sistema real, aquí guardaríamos en VenueData y localStorage
+            // Create unique ID for venue
+            const venueId = name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+
+            // Venue object
+            const newVenue = {
+                id: venueId,
+                name: name,
+                address: address,
+                category: category,
+                price: price,
+                description: description,
+                logo: logo || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
+                banner: banner || 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
+                plan: plan,
+                hours: hours || 'Por definir',
+                rating: 0,
+                reviews: 0,
+                created: new Date().toISOString(),
+                status: 'active'
+            };
+
+            // Save to GunDB P2P Network
+            db.get('venues_admin').get(venueId).put(newVenue);
+
+            // Also publish to global feed for visibility
+            db.get('global_feed').set({
+                type: 'venue_created',
+                data: { venueName: name, venueId: venueId },
+                content: `Nuevo local agregado: <strong>${name}</strong>`,
+                timestamp: Date.now()
+            });
+
             NotificationSystem.showToast({
-                title: 'Registro Exitoso',
-                message: `${name} ha sido añadido con el plan ${plan.toUpperCase()}.`,
+                title: 'Local Publicado en P2P',
+                message: `${name} ha sido añadido a la red descentralizada.`,
                 icon: 'fa-shop',
                 type: 'success'
             });
@@ -2483,7 +2529,7 @@ const AdminSystem = {
             this.hideNewVenueForm();
             form.reset();
 
-            // Simular actualización
+            // Update admin lists
             setTimeout(() => {
                 this.renderVenues();
                 this.renderAnalyticsVenues();
