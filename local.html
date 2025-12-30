@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Local - RateFlow</title>
+    <meta name="theme-color" content="#111111">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <script src="scripts.js" defer></script>
+
+    <style>
+        .venue-hero {
+            height: 70vh;
+            min-height: 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .venue-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+            z-index: 1;
+        }
+
+        .venue-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .breadcrumbs {
+            display: flex;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        .gallery-box-wrapper {
+            position: absolute;
+            right: 5%;
+            bottom: 15%;
+            width: 300px;
+            z-index: 2;
+        }
+
+        @media (max-width: 1100px) {
+            .gallery-box-wrapper {
+                display: none;
+            }
+        }
+
+        .detail-page-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .detail-page-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar info cards */
+        .info-card-premium {
+            background: var(--dark-surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .map-mock {
+            width: 100%;
+            height: 200px;
+            background-image: url('https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');
+            background-size: cover;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .map-pin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary-red);
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sub-sections */
+        .page-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .icon-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .icon-title i {
+            color: var(--primary-red);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+
+            <div class="search-bar-header">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar lugares...">
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html" class="nav-item">Explorar</a>
+                <a href="tema.html" class="nav-item">Rankings</a>
+                <a href="tema.html" class="nav-item">Comunidad</a>
+            </nav>
+
+            <div class="user-actions">
+                <!-- Injected via scripts.js -->
+            </div>
+        </div>
+    </header>
+
+
+    <main id="venue-detail-root">
+        <!-- Hero Section -->
+        <section class="venue-hero">
+            <div class="venue-hero-bg" id="venue-hero-bg"></div>
+
+            <div class="venue-hero-content">
+                <div class="breadcrumbs">
+                    <span>Inicio</span> <i class="fa-solid fa-chevron-right"></i>
+                    <span>Restaurantes</span> <i class="fa-solid fa-chevron-right"></i>
+                    <span id="breadcrumb-local" style="color: white; font-weight: 700;">...</span>
+                </div>
+
+                <div class="badge-row">
+                    <!-- Badges can be added dynamically if needed -->
+                    <div class="rating-badge glass-effect">
+                        <i class="fa-solid fa-star"></i>
+                        <span id="hero-rating-val">4.8</span>
+                        <span style="opacity: 0.6; font-size: 0.7rem; font-weight: 400; margin-left: 2px;"
+                            id="hero-votes-count">0 reseñas</span>
+                    </div>
+                </div>
+
+                <h1 style="font-size: 4rem; font-weight: 900; margin-bottom: 1rem;" id="venue-title">...</h1>
+                <p style="font-size: 1.1rem; color: #ccc; margin-bottom: 2.5rem; max-width: 600px;"
+                    id="venue-hero-desc">...</p>
+
+                <div class="hero-action-bar">
+                    <button class="btn-premium-red" id="btn-reservar"><i class="fa-solid fa-utensils"></i> Pedir /
+                        Reservar Mesa</button>
+                    <button class="btn-premium-dark"><i class="fa-regular fa-bookmark"></i> Guardar</button>
+                    <div
+                        style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700; color: #4CAF50;">
+                        <span style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        Abierto ahora
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Trigger -->
+            <div class="gallery-box-wrapper">
+                <div class="gallery-trigger" id="gallery-trigger">
+                    <img id="gallery-thumb" src="" alt="Gallery Preview"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="gallery-overlay-text">
+                        <i class="fa-solid fa-table-cells-large"></i> Ver galería
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <div class="detail-page-grid">
+
+            <!-- Left Column: Meat -->
+            <div class="main-content-column">
+
+                <!-- About -->
+                <section class="page-section">
+                    <h3 class="icon-title" style="margin-bottom: 1.5rem;"><i class="fa-solid fa-utensils"></i> Sobre el
+                        lugar</h3>
+                    <p id="venue-full-desc" style="color: #ccc; line-height: 1.8; font-size: 0.95rem;">...</p>
+
+                    <div class="facilities-grid" id="facilities-grid">
+                        <!-- Facilities injected here -->
+                    </div>
+                </section>
+
+                <!-- Featured Dishes -->
+                <section class="page-section">
+                    <h3 class="icon-title" style="margin-bottom: 1.5rem;"><i class="fa-solid fa-utensils"></i> Platos
+                        Destacados</h3>
+                    <div id="featured-dishes-container">
+                        <!-- Dishes injected here -->
+                    </div>
+                </section>
+
+                <!-- Reviews Section -->
+                <section class="page-section" id="reviews-anchor">
+                    <div class="section-header-row">
+                        <h3 class="icon-title"><i class="fa-solid fa-comment-dots"></i> Reseñas y Opiniones</h3>
+                        <button class="btn-premium-dark" style="padding: 10px 20px; font-size: 0.8rem;"
+                            onclick="document.getElementById('review-form-box').scrollIntoView({behavior:'smooth'})">Escribir
+                            reseña</button>
+                    </div>
+
+                    <!-- Review Composition (Breakdown Selection) -->
+                    <div class="info-card-premium" id="review-form-box">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2rem;">
+                            <i class="fa-solid fa-comment-medical" style="color: var(--primary-red);"></i>
+                            <h4 style="margin:0;">Califica tu experiencia</h4>
+                        </div>
+
+                        <div class="rating-matrix" id="review-matrix">
+                            <div class="matrix-item" data-metric="sabor">
+                                <span class="matrix-label">Sabor / Calidad del Plato</span>
+                                <div class="matrix-stars interactive-stars">
+                                    <i class="fa-solid fa-star" data-value="1"></i>
+                                    <i class="fa-solid fa-star" data-value="2"></i>
+                                    <i class="fa-solid fa-star" data-value="3"></i>
+                                    <i class="fa-solid fa-star" data-value="4"></i>
+                                    <i class="fa-solid fa-star" data-value="5"></i>
+                                </div>
+                            </div>
+                            <div class="matrix-item" data-metric="ambiente">
+                                <span class="matrix-label">Ambiente / Instalaciones</span>
+                                <div class="matrix-stars interactive-stars">
+                                    <i class="fa-solid fa-star" data-value="1"></i>
+                                    <i class="fa-solid fa-star" data-value="2"></i>
+                                    <i class="fa-solid fa-star" data-value="3"></i>
+                                    <i class="fa-solid fa-star" data-value="4"></i>
+                                    <i class="fa-solid fa-star" data-value="5"></i>
+                                </div>
+                            </div>
+                            <div class="matrix-item" data-metric="servicio">
+                                <span class="matrix-label">Servicio / Atención</span>
+                                <div class="matrix-stars interactive-stars">
+                                    <i class="fa-solid fa-star" data-value="1"></i>
+                                    <i class="fa-solid fa-star" data-value="2"></i>
+                                    <i class="fa-solid fa-star" data-value="3"></i>
+                                    <i class="fa-solid fa-star" data-value="4"></i>
+                                    <i class="fa-solid fa-star" data-value="5"></i>
+                                </div>
+                            </div>
+                            <div class="matrix-item" data-metric="precio">
+                                <span class="matrix-label">Relación Calidad-Precio</span>
+                                <div class="matrix-stars interactive-stars">
+                                    <i class="fa-solid fa-star" data-value="1"></i>
+                                    <i class="fa-solid fa-star" data-value="2"></i>
+                                    <i class="fa-solid fa-star" data-value="3"></i>
+                                    <i class="fa-solid fa-star" data-value="4"></i>
+                                    <i class="fa-solid fa-star" data-value="5"></i>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="margin-top: 1.5rem;">
+                            <label
+                                style="display:block; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.5rem; letter-spacing: 1px;">COMENTARIO</label>
+                            <textarea id="community-review-input" placeholder="Tu opinión ayuda a otros a decidir..."
+                                style="width: 100%; height: 120px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1rem; color: white; font-family: inherit; resize: none; transition: var(--transition-smooth);"></textarea>
+                        </div>
+
+
+                        <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+                            <button class="btn-premium-red" onclick="CommunitySystem.postReview()">Enviar Calificación
+                                <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Reviews Feed -->
+                    <div id="community-reviews-list">
+                        <!-- Reviews with sub-ratings injected here -->
+                    </div>
+
+                    <!-- Load more reviews would go here once we have enough data -->
+                </section>
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <aside class="sidebar-column">
+
+                <div class="info-card-premium">
+                    <h4 style="margin-bottom: 1.5rem;">Información</h4>
+
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                        <i class="fa-solid fa-clock" style="margin-top: 4px; color: #aaa;"></i>
+                        <div>
+                            <div class="info-label">Horario</div>
+                            <div class="info-value" id="side-hours">...</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                        <i class="fa-solid fa-phone" style="margin-top: 4px; color: #aaa;"></i>
+                        <div>
+                            <div class="info-label">Teléfono</div>
+                            <div class="info-value" id="side-phone">...</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                        <i class="fa-solid fa-globe" style="margin-top: 4px; color: #aaa;"></i>
+                        <div>
+                            <div class="info-label">Sitio Web</div>
+                            <div class="info-value"><a href="#" id="side-web" style="color: var(--primary-red);">...</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div style="flex: 1;">
+                            <div class="info-label">Rango de precio</div>
+                            <div class="info-value" id="side-price">$$$$</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div class="info-label">Estilo</div>
+                            <div class="info-value" id="side-style">...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card-premium">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h4 style="margin:0;"><i class="fa-solid fa-location-dot"
+                                style="color: var(--primary-red);"></i> Ubicación</h4>
+                        <a href="#" style="font-size: 0.7rem; font-weight: 800; color: var(--primary-red);">CÓMO
+                            LLEGAR</a>
+                    </div>
+
+                    <div class="map-mock">
+                        <div class="map-pin">📍</div>
+                    </div>
+
+                    <p id="side-address" style="font-size: 0.85rem; color: #ccc; text-align: center;">...</p>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-col brand-col">
+            <div class="logo-container">
+                <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+            <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad. Vive experiencias
+                únicas.</p>
+        </div>
+        <div class="footer-col">
+            <h5>DESCUBRIR</h5>
+            <a href="#">Tendencias</a>
+            <a href="tema.html">Ranking</a>
+            <a href="#">Cerca de mí</a>
+        </div>
+        <div class="footer-col">
+            <h5>COMUNIDAD</h5>
+            <a href="business.html">Para Negocios</a>
+            <a href="#">Ayuda</a>
+            <a href="blog.html">Blog</a>
+        </div>
+        <div class="footer-col">
+            <h5>SÍGUENOS</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div>&copy; 2024 RateFlow Inc.</div>
+        <div>
+            <a href="privacidad.html">Privacidad</a>
+            <a href="terminos.html">Términos</a>
+            <a href="cookies.html">Cookies</a>
+        </div>
+    </div>
+
+    <!-- Reservation Modal -->
+    <div id="reservation-modal" class="modal-overlay">
+        <div class="modal-container premium-modal" style="max-width: 500px;">
+            <button class="close-modal-btn" id="close-reservation-btn"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="modal-header">
+                <h3>Reservar Mesa</h3>
+                <p>Asegura tu lugar en <span id="res-venue-name"
+                        style="color:var(--primary-red); font-weight:700;">...</span></p>
+            </div>
+
+            <div class="modal-body">
+                <!-- Step 1: Date & Time -->
+                <div id="res-step-1" class="res-step active">
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input type="date" id="res-date" class="premium-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Hora</label>
+                        <select id="res-time" class="premium-input">
+                            <option value="">Selecciona una hora</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:30">21:30</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:30">22:30</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Personas</label>
+                        <div class="people-selector">
+                            <button class="people-btn" onclick="ReservationSystem.setPeople(2)">2</button>
+                            <button class="people-btn" onclick="ReservationSystem.setPeople(3)">3</button>
+                            <button class="people-btn active" onclick="ReservationSystem.setPeople(4)">4</button>
+                            <button class="people-btn" onclick="ReservationSystem.setPeople(5)">5</button>
+                            <button class="people-btn" onclick="ReservationSystem.setPeople(6)">6+</button>
+                        </div>
+                        <input type="hidden" id="res-people" value="4">
+                    </div>
+                    <button class="btn-primary-gradient full-width"
+                        onclick="ReservationSystem.nextStep()">Continuar</button>
+                </div>
+
+                <!-- Step 2: Confirmation -->
+                <div id="res-step-2" class="res-step">
+                    <div class="confirmation-summary">
+                        <div class="summary-row">
+                            <span>Lugar:</span> <span id="conf-venue">...</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Fecha:</span> <span id="conf-date">...</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Hora:</span> <span id="conf-time">...</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Mesa para:</span> <span id="conf-people">...</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:1rem;">
+                        <label>Notas especiales (opcional)</label>
+                        <textarea id="res-notes" class="premium-input" placeholder="Alergias, ocasión especial, etc."
+                            style="height:80px;"></textarea>
+                    </div>
+
+                    <button class="btn-primary-gradient full-width" onclick="ReservationSystem.confirm()">Confirmar
+                        Reserva</button>
+                    <button class="btn-text-only full-width" onclick="ReservationSystem.prevStep()">Volver</button>
+                </div>
+
+                <!-- Step 3: Success -->
+                <div id="res-step-3" class="res-step" style="text-align:center; padding: 2rem 0;">
+                    <div style="font-size: 4rem; color: #4CAF50; margin-bottom: 1rem;">
+                        <i class="fa-regular fa-circle-check"></i>
+                    </div>
+                    <h3 style="color:white; margin-bottom:0.5rem;">¡Reserva Confirmada!</h3>
+                    <p style="color:#ccc; margin-bottom:2rem;">Te hemos enviado un correo con los detalles.</p>
+                    <button class="btn-outline full-width" onclick="ReservationSystem.closeModal()">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

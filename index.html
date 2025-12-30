@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>RateFlow | La Comunidad de las Mejores Hamburguesas en Montevideo</title>
+
+  <!-- SEO & Meta -->
+  <meta name="description"
+    content="Únete a la mayor comunidad foodie de Montevideo. Descubre, vota y comparte reseñas de las mejores hamburgueserías. RateFlow: tu opinión construye el ranking real.">
+  <meta name="keywords"
+    content="hamburguesas montevideo, mejor hamburguesa uruguay, comunidad foodie, reseñas comida, ranking hamburguesas">
+  <meta name="theme-color" content="#111111">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rateflow.uy/">
+  <meta property="og:title" content="RateFlow | La Comunidad de las Mejores Hamburguesas">
+  <meta property="og:description"
+    content="¿Dónde está la mejor hamburguesa? Vota en nuestra comunidad y decide el ranking oficial de Montevideo.">
+  <meta property="og:image" content="img/og-preview.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+</head>
+
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container" onclick="window.location.href='index.html'" style="cursor:pointer;">
+        <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <span class="logo-text">RateFlow</span>
+      </div>
+
+      <div class="search-bar-header">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="global-search-input" placeholder="Buscar lugares, antojos..." autocomplete="off">
+        <div id="global-search-results" class="search-results-dropdown"></div>
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-item">Explorar</a>
+        <a href="tema.html" class="nav-item">Ranking de la Comunidad</a>
+        <a href="equipo.html" class="nav-item">Quiénes Somos</a>
+      </nav>
+
+      <div class="user-actions">
+        <!-- Injected via scripts.js -->
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-background"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Construimos la mejor <br><span class="highlight-text">comunidad burger</span></h1>
+        <p class="hero-subtitle">Tu opinión es la que cuenta. Únete a miles de foodies para<br>decidir cuál es la
+          verdadera mejor hamburgesa de la ciudad.</p>
+
+        <div class="search-container">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="¿Qué se te antoja hoy?" class="search-input">
+            <button class="btn-search">Buscar</button>
+          </div>
+        </div>
+
+        <div class="filter-chips">
+          <button class="chip"><i class="fa-solid fa-utensils"></i> Restaurantes</button>
+          <button class="chip"><i class="fa-solid fa-wine-glass"></i> Bares</button>
+          <button class="chip"><i class="fa-solid fa-mug-hot"></i> Cafés</button>
+          <button class="chip"><i class="fa-solid fa-champagne-glasses"></i> Fiesta</button>
+          <button class="chip active-chip"><i class="fa-solid fa-location-arrow"></i> Cerca de Mi</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Stats Section -->
+    <section class="community-snapshot">
+      <div class="stats-container">
+        <div class="stat-item">
+          <span class="stat-number">1,248</span>
+          <span class="stat-label">Miembros de la Tribu</span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item">
+          <span class="stat-number">5,820</span>
+          <span class="stat-label">Votos Emitidos</span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item">
+          <span class="stat-number">24</span>
+          <span class="stat-label">Locales Rankeados</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Monetization: Burger of the Month (Content Sponsorship) -->
+    <section class="featured-month">
+      <div class="content-section" style="padding:0;">
+        <span class="tag-orange" style="margin-bottom:1rem; display:inline-block;">BURGER DEL MES <i
+            class="fa-solid fa-star"></i></span>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">The Beast Double Cheese</h2>
+        <p style="color:#ccc; margin-bottom: 2rem; max-width:600px; margin-inline:auto;">
+          Una colaboración exclusiva con <strong>Rudy Burgers</strong>. Doble carne smash, queso cheddar inglés y salsa
+          secreta de trufa negra.
+        </p>
+        <a href="tema.html" class="btn-outline pill" style="padding: 10px 30px;">Leer Reseña Completa</a>
+      </div>
+    </section>
+
+    <!-- Monetization: Display Icon Ad -->
+    <div class="ad-banner">
+      <span style="font-size:0.7rem; color:#333; margin-right:1rem;">PUBLICIDAD</span>
+      <i class="fa-solid fa-beer-mug-empty"></i> Patagonia: 2x1 en Pintas todos los jueves
+    </div>
+
+    <!-- Selección ULTRA Section -->
+    <section class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Selección <span class="highlight-red">ULTRA</span></h2>
+          <p class="section-subtitle">Experiencias premium seleccionadas exclusivamente para ti.</p>
+        </div>
+        <a href="#" class="view-all">Ver colección completa <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="cards-scroller">
+        <!-- Card 1 -->
+        <article class="card premium-card">
+          <div class="card-image" style="background-image: url('img/fotohamburguesbannerindex.jpeg');">
+            <div class="card-tags">
+              <span class="tag-red">RECOMENDADO</span>
+            </div>
+            <div class="card-heart"><i class="fa-regular fa-heart"></i></div>
+          </div>
+          <div class="card-info">
+            <div class="card-header-row">
+              <h3 class="venue-name">Lumina Sky Bar</h3>
+              <div class="rating-badge"><i class="fa-solid fa-star"></i> 4.9</div>
+            </div>
+            <div class="card-meta-row">
+              <span class="venue-type">Rooftop • Coctelería de Autor</span>
+              <span class="price">$$$$</span>
+            </div>
+            <div class="card-location-row">
+              <div class="location"><i class="fa-solid fa-location-dot"></i> Polanco, Ciudad de México</div>
+              <div class="status open">ABIERTO AHORA</div>
+            </div>
+            <button class="btn-block">Reservar Mesa</button>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card premium-card">
+          <div class="card-image" style="background-image: url('img/bannertema.jpg');">
+            <div class="card-tags">
+              <span class="tag-orange">TRENDING</span>
+            </div>
+            <div class="card-heart"><i class="fa-regular fa-heart"></i></div>
+          </div>
+          <div class="card-info">
+            <div class="card-header-row">
+              <h3 class="venue-name">Azul Histórico</h3>
+              <div class="rating-badge"><i class="fa-solid fa-star"></i> 4.8</div>
+            </div>
+            <div class="card-meta-row">
+              <span class="venue-type">Mexicana • Gourmet</span>
+              <span class="price">$$$</span>
+            </div>
+            <div class="card-location-row">
+              <div class="location"><i class="fa-solid fa-location-dot"></i> Centro Histórico, CDMX</div>
+              <div class="status open">ABIERTO AHORA</div>
+            </div>
+            <button class="btn-outline">Ver Disponibilidad</button>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card premium-card">
+          <div class="card-image" style="background-image: url('img/bannercontacto.jpg');">
+            <div class="card-tags">
+              <span class="tag-dark">EXCLUSIVO</span>
+            </div>
+            <div class="card-heart"><i class="fa-regular fa-heart"></i></div>
+          </div>
+          <div class="card-info">
+            <div class="card-header-row">
+              <h3 class="venue-name">Onyx Club</h3>
+              <div class="rating-badge"><i class="fa-solid fa-star"></i> 4.7</div>
+            </div>
+            <div class="card-meta-row">
+              <span class="venue-type">Vida Nocturna • Electrónica</span>
+              <span class="price">$$$</span>
+            </div>
+            <div class="card-location-row">
+              <div class="location"><i class="fa-solid fa-location-dot"></i> Roma Norte, CDMX</div>
+              <div class="status closed">ABRE 10:00 PM</div>
+            </div>
+            <button class="btn-outline">Reservar VIP</button>
+          </div>
+        </article>
+      </div>
+      </div>
+    </section>
+
+    <!-- Monetization: Display Text Ad -->
+    <div class="ad-banner">
+      <span style="font-size:0.7rem; color:#333; margin-right:1rem;">SPONSORED</span>
+      Conoce la nueva app de Delivery que está revolucionando la ciudad. <a href="#"
+        style="color:#FF4D00; margin-left:5px;">Descargar</a>
+    </div>
+
+    <!-- Recent Activity Feed (Community Pulse) -->
+    <section class="content-section"
+      style="background: rgba(255,255,255,0.02); border-radius: 20px; margin: 2rem 5%; padding: 2rem;">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title"><i class="fa-solid fa-bolt" style="color:var(--primary-red);"></i> El Pulso de la
+            Comunidad</h2>
+          <p class="section-subtitle">Lo que está pasando ahora mismo en RateFlow.</p>
+        </div>
+      </div>
+
+      <div class="activity-feed">
+        <div class="activity-item">
+          <div class="activity-avatar">JD</div>
+          <div class="activity-text">
+            <strong>Juan D.</strong> votó <span class="rating-highlight">4.8</span> por <strong>Rudy Burgers</strong>
+            <span class="activity-time">Hace 5 min</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar" style="background:var(--tag-orange-bg);">ML</div>
+          <div class="activity-text">
+            <strong>Maria L.</strong> subió a rango <span class="badge-hunter">🔥 Burger Hunter</span>
+            <span class="activity-time">Hace 12 min</span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-avatar" style="background:var(--tag-red-bg);">PC</div>
+          <div class="activity-text">
+            <strong>Pablo C.</strong> unió a la tribu. ¡Bienvenido!
+            <span class="activity-time">Hace 25 min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Explorar Section (DYNAMIC) -->
+    <section class="content-section">
+      <div class="section-header">
+        <div>
+          <!-- ID for Personalization -->
+          <h2 class="section-title">Explorar: <span id="recommendation-title" class="highlight-text">Recomendados para
+              ti</span></h2>
+          <p class="section-subtitle">Descubre gemas locales basadas en tus gustos.</p>
+        </div>
+      </div>
+
+      <!-- Grid for dynamic content -->
+      <div class="cards-grid" id="recommendations-grid">
+        <!-- Content injected by JS -->
+        <div style="grid-column: 1/-1; text-align: center; color: #555; padding: 2rem;">
+          <i class="fa-solid fa-spinner fa-spin"></i> Cargando recomendaciones...
+        </div>
+      </div>
+
+      <div class="load-more-container">
+        <button class="btn-outline pill">Cargar más locales</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-col brand-col">
+      <div class="logo-container">
+        <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <span class="logo-text">RateFlow</span>
+      </div>
+      <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad. Vive experiencias
+        únicas.</p>
+    </div>
+
+    <div class="footer-col">
+      <h5>DESCUBRIR</h5>
+      <a href="#">Tendencias</a>
+      <a href="tema.html">Ranking</a>
+      <a href="#">Cerca de mí</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>COMUNIDAD</h5>
+      <a href="business.html">Para Negocios</a>
+      <a href="#">Ayuda</a>
+      <a href="blog.html">Blog</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>SÍGUENOS</h5>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+
+  </footer>
+  <div class="footer-bottom">
+    <div>&copy; 2024 RateFlow Inc.</div>
+    <div>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="terminos.html">Términos</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
+  </div>
+
+  <!-- GunDB P2P -->
+  <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+
+  <script src="scripts.js" defer></script>
+</body>
+
+</html>

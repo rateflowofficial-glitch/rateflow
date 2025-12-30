@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Oficial - RateFlow</title>
+    <meta name="theme-color" content="#111111">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <script src="scripts.js" defer></script>
+
+    <style>
+        .store-hero {
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            background: radial-gradient(circle at top, rgba(227, 6, 19, 0.1) 0%, transparent 70%);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--dark-surface);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-orange);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-img {
+            height: 200px;
+            background: linear-gradient(45deg, #1a1a1a, #333);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .giftcard-glow {
+            width: 80%;
+            height: 60%;
+            background: var(--highlight-gradient);
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(227, 6, 19, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            transform: rotate(-5deg);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin: 0.5rem 0;
+        }
+
+        .buy-btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .buy-btn:hover {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .verified-badge-mini {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+
+            <div class="search-bar-header">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar lugares...">
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html" class="nav-item">Explorar</a>
+                <a href="tema.html" class="nav-item">Rankings</a>
+                <a href="tema.html" class="nav-item">Comunidad</a>
+            </nav>
+
+            <div class="user-actions">
+                <!-- Injected via scripts.js -->
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <section class="store-hero">
+            <h1 class="hero-title" style="font-size: 3.5rem;">Marketplace <span
+                    class="highlight-orange">EXCLUSIVE</span></h1>
+            <p class="hero-subtitle">Gift cards, merchandising y guías digitales para expertos en burgers.</p>
+        </section>
+
+        <div class="category-grid">
+            <!-- Gift Card 1 -->
+            <article class="product-card">
+                <div class="product-img">
+                    <div class="giftcard-glow">$500</div>
+                </div>
+                <div class="product-info">
+                    <span class="verified-badge-mini"><i class="fa-solid fa-check"></i> CANJEABLE</span>
+                    <h3>Gift Card - Basic</h3>
+                    <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem;">Válida para Rudy Burgers y
+                        Garage Burger.</p>
+                    <div class="product-price">$500</div>
+                    <button class="buy-btn">Comprar Ahora</button>
+                </div>
+            </article>
+
+            <!-- Gift Card 2 -->
+            <article class="product-card">
+                <div class="product-img">
+                    <div class="giftcard-glow" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);">
+                        $2000</div>
+                </div>
+                <div class="product-info">
+                    <span class="verified-badge-mini" style="background:rgba(255,215,0,0.2); color:#FFD700;"><i
+                            class="fa-solid fa-crown"></i> PREMIUM</span>
+                    <h3>Gift Card - Gold Experience</h3>
+                    <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem;">Experiencia completa para
+                        dos personas en cualquier local TBV.</p>
+                    <div class="product-price">$2.000</div>
+                    <button class="buy-btn">Comprar Ahora</button>
+                </div>
+            </article>
+
+            <!-- Digital Product -->
+            <article class="product-card">
+                <div class="product-img">
+                    <div style="font-size: 5rem; color: rgba(255,255,255,0.1);"><i class="fa-solid fa-book-open"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="verified-badge-mini" style="background:rgba(100,100,255,0.2); color:#6464FF;"><i
+                            class="fa-solid fa-file-pdf"></i> DIGITAL</span>
+                    <h3>Guía: El Arte del Blend</h3>
+                    <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem;">Ebook exclusivo con los
+                        secretos de los maestros hamburgueseros.</p>
+                    <div class="product-price">$350</div>
+                    <button class="buy-btn">Descargar</button>
+                </div>
+            </article>
+
+            <!-- Merch -->
+            <article class="product-card">
+                <div class="product-img">
+                    <div style="font-size: 5rem; color: rgba(255,255,255,0.1);"><i class="fa-solid fa-shirt"></i></div>
+                </div>
+                <div class="product-info">
+                    <span class="verified-badge-mini"
+                        style="background:rgba(255,77,0,0.2); color:var(--primary-orange);"><i
+                            class="fa-solid fa-star"></i> EDICIÓN LIMITADA</span>
+                    <h3>Remera "RateFlow Original"</h3>
+                    <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem;">Algodón premium con diseño
+                        minimalista de la comunidad.</p>
+                    <div class="product-price">$1.200</div>
+                    <button class="buy-btn">Seleccionar Talle</button>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-col brand-col">
+            <div class="logo-container">
+                <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+            <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad. Vive experiencias
+                únicas.</p>
+        </div>
+        <div class="footer-col">
+            <h5>DESCUBRIR</h5>
+            <a href="#">Tendencias</a>
+            <a href="tema.html">Ranking</a>
+            <a href="#">Cerca de mí</a>
+        </div>
+        <div class="footer-col">
+            <h5>COMUNIDAD</h5>
+            <a href="business.html">Para Negocios</a>
+            <a href="#">Ayuda</a>
+            <a href="blog.html">Blog</a>
+        </div>
+        <div class="footer-col">
+            <h5>SÍGUENOS</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div>&copy; 2024 RateFlow Inc.</div>
+        <div>
+            <a href="privacidad.html">Privacidad</a>
+            <a href="terminos.html">Términos</a>
+            <a href="cookies.html">Cookies</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

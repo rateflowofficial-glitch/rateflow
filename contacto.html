@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Contacto | Únete a la Conversación en RateFlow</title>
+
+  <!-- SEO -->
+  <meta name="description"
+    content="¿Quieres recomendarnos un lugar o tienes una sugerencia? Ponte en contacto con la comunidad de RateFlow.">
+  <meta name="theme-color" content="#111111">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+</head>
+
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container" onclick="window.location.href='index.html'" style="cursor:pointer;">
+        <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <span class="logo-text">RateFlow</span>
+      </div>
+
+      <div class="search-bar-header">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Buscar lugares...">
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-item">Explorar</a>
+        <a href="tema.html" class="nav-item">Ranking de la Comunidad</a>
+        <a href="equipo.html" class="nav-item">Quiénes Somos</a>
+      </nav>
+
+      <div class="user-actions">
+        <!-- Injected via scripts.js -->
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero/Banner Section for Contact -->
+    <section class="hero-section" style="height: 40vh; min-height: 300px;">
+      <div class="hero-background" style="background-image: url('img/bannercontacto.jpg');"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Contáctanos</h1>
+        <p class="hero-subtitle">Estamos aquí para escucharte. Envíanos tus dudas o sugerencias.</p>
+      </div>
+    </section>
+
+    <!-- Contact Form & Map Section -->
+    <section class="content-section">
+      <div class="contacto-wrapper" style="display: flex; flex-wrap: wrap; gap: 4rem; justify-content: center;">
+
+        <!-- Formulario -->
+        <div class="card" style="flex: 1; min-width: 300px; padding: 2rem; background-color: var(--dark-surface);">
+          <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Envíanos un mensaje</h2>
+
+          <form action="/action_page.php" method="post" id="contactForm"
+            style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+              <label for="nombre"
+                style="color: var(--text-secondary); margin-bottom: 0.5rem; display: block;">Nombre</label>
+              <input type="text" id="nombre" name="Nombre" required class="search-input"
+                style="width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: rgba(0,0,0,0.2);">
+            </div>
+
+            <div>
+              <label for="email"
+                style="color: var(--text-secondary); margin-bottom: 0.5rem; display: block;">Email</label>
+              <input type="email" id="email" name="Email" required class="search-input"
+                style="width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: rgba(0,0,0,0.2);">
+            </div>
+
+            <div>
+              <label for="mensaje"
+                style="color: var(--text-secondary); margin-bottom: 0.5rem; display: block;">Mensaje</label>
+              <textarea id="mensaje" name="Mensaje" rows="5" class="search-input"
+                style="width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: rgba(0,0,0,0.2); resize: vertical;"></textarea>
+            </div>
+
+            <fieldset id="novedades-fieldset" style="border: none; padding: 0;">
+              <legend style="color: var(--text-secondary); margin-bottom: 0.5rem;">¿Desea recibir novedades?</legend>
+              <div style="display: flex; gap: 1rem;">
+                <label style="color: white; display: flex; align-items: center; gap: 0.5rem;">
+                  <input type="radio" id="emailSi" name="EmailNovedades" value="Si" checked> Sí
+                </label>
+                <label style="color: white; display: flex; align-items: center; gap: 0.5rem;">
+                  <input type="radio" id="emailNo" name="EmailNovedades" value="No"> No
+                </label>
+              </div>
+            </fieldset>
+
+            <button type="submit" id="btn-enviar" class="btn-search"
+              style="border-radius: 8px; margin-top: 1rem; width: 100%;">Enviar Mensaje</button>
+          </form>
+        </div>
+
+        <!-- Mapa -->
+        <div class="card"
+          style="flex: 1; min-width: 300px; height: auto; min-height: 500px; overflow: hidden; padding: 0;">
+          <iframe src="https://www.google.com/maps/d/u/2/embed?mid=1TqiqBMDRredIreOJ7EtZkLctrmNBEw0&ehbc=2E312F"
+            width="100%" height="100%" style="border:0; min-height: 500px;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-col brand-col">
+      <div class="logo-container">
+        <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <span class="logo-text">RateFlow</span>
+      </div>
+      <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad. Vive experiencias
+        únicas.</p>
+    </div>
+
+    <div class="footer-col">
+      <h5>DESCUBRIR</h5>
+      <a href="#">Tendencias</a>
+      <a href="tema.html">Ranking</a>
+      <a href="tienda.html">Tienda</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>COMUNIDAD</h5>
+      <a href="business.html">Para Negocios</a>
+      <a href="#">Ayuda</a>
+      <a href="blog.html">Blog</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>SÍGUENOS</h5>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <div>&copy; 2024 RateFlow Inc.</div>
+    <div>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="terminos.html">Términos</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
+  </div>
+
+  <script src="scripts.js" defer></script>
+</body>
+
+</html>

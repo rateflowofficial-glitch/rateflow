@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - RateFlow</title>
+    <meta name="theme-color" content="#111111">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <script src="scripts.js" defer></script>
+
+    <style>
+        /* Auth Specific Styles within RateFlow System */
+        .auth-wrapper {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(62, 23, 14, 0.2) 0%, rgba(17, 17, 17, 1) 80%);
+            padding: 2rem;
+        }
+
+        .auth-card {
+            background-color: var(--dark-surface);
+            padding: 3rem;
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-logo {
+            font-size: 2rem;
+            color: var(--text-primary);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-title {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .auth-footer a {
+            color: white;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            color: var(--primary-red);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+
+            <div class="search-bar-header">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar lugares...">
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html" class="nav-item">Explorar</a>
+                <a href="tema.html" class="nav-item">Rankings</a>
+                <a href="tema.html" class="nav-item">Comunidad</a>
+            </nav>
+
+            <div class="user-actions">
+                <!-- Injected via scripts.js -->
+            </div>
+        </div>
+    </header>
+
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <span class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></span>
+                    RateFlow
+                </div>
+                <p class="auth-title">Bienvenido de nuevo</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <input type="email" id="login-email" class="form-input" placeholder="Correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-pass" class="form-input" placeholder="Contraseña" required>
+                </div>
+
+                <button type="submit" class="btn-block"
+                    style="background: var(--highlight-gradient); color: white; border: none; padding: 14px;">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+
+            const res = AuthManager.login(email, pass);
+
+            if (res.success) {
+                if (res.role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'tema.html';
+                }
+            } else {
+                alert('Credenciales incorrectas');
+            }
+        }
+    </script>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-col brand-col">
+            <div class="logo-container">
+                <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+            <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad. Vive experiencias
+                únicas.</p>
+        </div>
+        <div class="footer-col">
+            <h5>DESCUBRIR</h5>
+            <a href="#">Tendencias</a>
+            <a href="tema.html">Ranking</a>
+            <a href="#">Cerca de mí</a>
+        </div>
+        <div class="footer-col">
+            <h5>COMUNIDAD</h5>
+            <a href="business.html">Para Negocios</a>
+            <a href="#">Ayuda</a>
+            <a href="blog.html">Blog</a>
+        </div>
+        <div class="footer-col">
+            <h5>SÍGUENOS</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div>&copy; 2024 RateFlow Inc.</div>
+        <div>
+            <a href="privacidad.html">Privacidad</a>
+            <a href="terminos.html">Términos</a>
+            <a href="cookies.html">Cookies</a>
+        </div>
+    </div>
+</body>
+
+</html>

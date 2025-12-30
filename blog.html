@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | El Pulso de la Ciudad en RateFlow</title>
+    <meta name="theme-color" content="#111111">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+
+    <style>
+        .blog-hero {
+            height: 40vh;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blog-grid {
+            max-width: 1200px;
+            margin: 4rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 0 2rem;
+        }
+
+        .blog-card {
+            background: var(--dark-surface);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .blog-card-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blog-card-content {
+            padding: 2rem;
+        }
+
+        .blog-card-tag {
+            background: rgba(227, 6, 19, 0.1);
+            color: var(--primary-red);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .blog-card-title {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-card-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container" onclick="window.location.href='index.html'" style="cursor:pointer;">
+                <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html" class="nav-item">Explorar</a>
+                <a href="tema.html" class="nav-item">Ranking</a>
+                <a href="blog.html" class="nav-item active">Blog</a>
+            </nav>
+
+            <div class="user-actions">
+                <!-- Injected via scripts.js -->
+            </div>
+        </div>
+    </header>
+
+    <section class="blog-hero">
+        <div class="hero-content">
+            <h1 class="hero-title" style="font-size: 3.5rem;">Historias con Sabor</h1>
+            <p class="hero-subtitle">Noticias, tendencias y descubrimientos en el mundo gastronómico.</p>
+        </div>
+    </section>
+
+    <main class="blog-grid">
+        <!-- Post 1 -->
+        <article class="blog-card">
+            <div class="blog-card-img"
+                style="background-image: url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=80');">
+            </div>
+            <div class="blog-card-content">
+                <span class="blog-card-tag">TENDENCIAS</span>
+                <h3 class="blog-card-title">El Auge de la Smash Burger en Montevideo</h3>
+                <p class="blog-card-desc">Analizamos por qué esta técnica de cocción se ha apoderado de las parrillas de
+                    la ciudad y dónde encontrar las mejores.</p>
+                <div class="blog-card-footer">
+                    <span>Por Equipo RateFlow</span>
+                    <span>30 Dic, 2025</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article class="blog-card">
+            <div class="blog-card-img"
+                style="background-image: url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&w=800&q=80');">
+            </div>
+            <div class="blog-card-content">
+                <span class="blog-card-tag">COMUNIDAD</span>
+                <h3 class="blog-card-title">Cómo ser un Crítico de Nivel 10,000</h3>
+                <p class="blog-card-desc">Consejos para que tus reseñas sean útiles, honestas y te ayuden a escalar en
+                    el ranking de la comunidad.</p>
+                <div class="blog-card-footer">
+                    <span>Por Equipo RateFlow</span>
+                    <span>28 Dic, 2025</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Post 3 -->
+        <article class="blog-card">
+            <div class="blog-card-img"
+                style="background-image: url('https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=800&q=80');">
+            </div>
+            <div class="blog-card-content">
+                <span class="blog-card-tag">DESCUBRIMIENTOS</span>
+                <h3 class="blog-card-title">Secretos del Casco Antiguo</h3>
+                <p class="blog-card-desc">Exploramos los rincones menos conocidos de la Ciudad Vieja donde el sabor
+                    trasciende la fachada.</p>
+                <div class="blog-card-footer">
+                    <span>Por Equipo RateFlow</span>
+                    <span>25 Dic, 2025</span>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-col brand-col">
+            <div class="logo-container">
+                <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+            <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad.</p>
+        </div>
+        <div class="footer-col">
+            <h5>DESCUBRIR</h5>
+            <a href="tema.html">Ranking</a>
+            <a href="index.html">Explorar</a>
+        </div>
+        <div class="footer-col">
+            <h5>COMUNIDAD</h5>
+            <a href="blog.html">Blog</a>
+            <a href="equipo.html">Quiénes Somos</a>
+        </div>
+        <div class="footer-col">
+            <h5>SÍGUENOS</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="footer-bottom">
+        <div>&copy; 2025 RateFlow Inc.</div>
+        <div>
+            <a href="privacidad.html">Privacidad</a>
+            <a href="terminos.html">Términos</a>
+            <a href="cookies.html">Cookies</a>
+        </div>
+    </div>
+
+    <script src="scripts.js" defer></script>
+</body>
+
+</html>

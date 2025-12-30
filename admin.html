@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - RateFlow</title>
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+</head>
+
+<body class="admin-body">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-top">
+                <div class="logo-container">
+                    <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <div class="logo-names">
+                        <span class="logo-text">RateFlow</span>
+                        <span class="logo-subtext">Admin B2B</span>
+                    </div>
+                </div>
+
+                <nav class="admin-nav-menu">
+                    <a href="#" class="admin-nav-item active" data-tab="dashboard">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="admin-nav-item" data-tab="locales">
+                        <i class="fa-solid fa-shop"></i>
+                        <span>Locales</span>
+                    </a>
+                    <a href="#" class="admin-nav-item" data-tab="users">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Usuarios</span>
+                    </a>
+                    <a href="#" class="admin-nav-item" data-tab="reviews">
+                        <i class="fa-solid fa-comments"></i>
+                        <span>Reseñas</span>
+                    </a>
+                    <a href="#" class="admin-nav-item" data-tab="analytics">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="#" class="admin-nav-item" data-tab="config">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Configuración</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="admin-sidebar-footer">
+                <div class="admin-user-info">
+                    <div class="admin-avatar">AD</div>
+                    <div class="admin-details">
+                        <span class="admin-name">Admin User</span>
+                        <span class="admin-email">admin@rateflow.com</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="admin-breadcrumbs">
+                    <span>Home</span> / <span>Admin</span> / <span id="current-crumb">Dashboard</span>
+                </div>
+            </header>
+
+            <div class="admin-content-wrapper">
+                <!-- Dashboard Tab -->
+                <div id="tab-dashboard" class="admin-tab-pane active">
+                    <h1 class="admin-page-title">Vista General</h1>
+                    <div class="admin-stats-grid">
+                        <div class="stat-card clickable" onclick="AdminSystem.showMetricDetail('users')">
+                            <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Usuarios Totales</span>
+                                <span class="stat-value" id="total-users-val">...</span>
+                            </div>
+                            <div class="stat-action-hint"><i class="fa-solid fa-chevron-right"></i></div>
+                        </div>
+                        <div class="stat-card clickable" onclick="AdminSystem.showMetricDetail('venues')">
+                            <div class="stat-icon"><i class="fa-solid fa-shop"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Locales Activos</span>
+                                <span class="stat-value" id="total-venues-val">...</span>
+                            </div>
+                            <div class="stat-action-hint"><i class="fa-solid fa-chevron-right"></i></div>
+                        </div>
+                        <div class="stat-card clickable" onclick="AdminSystem.showMetricDetail('reviews')">
+                            <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Reseñas Publicadas</span>
+                                <span class="stat-value" id="total-reviews-val">...</span>
+                            </div>
+                            <div class="stat-action-hint"><i class="fa-solid fa-chevron-right"></i></div>
+                        </div>
+                        <div class="stat-card featured clickable" onclick="AdminSystem.showMetricDetail('traffic')">
+                            <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Visitas Hoy</span>
+                                <span class="stat-value" id="today-traffic-val">1,284</span>
+                            </div>
+                            <div class="stat-action-hint"><i class="fa-solid fa-chevron-right"></i></div>
+                        </div>
+                    </div>
+
+                    <div class="admin-charts-mockup">
+                        <div class="admin-panel-card">
+                            <h3>Actividad de la Red</h3>
+                            <p style="color:#555; font-size:0.75rem; margin-top:-10px; margin-bottom:1.5rem;">Tráfico
+                                diario y balance histórico mensual.</p>
+
+                            <!-- Daily Connections (Compact) - Always visible -->
+                            <div id="monthly-connections-chart" class="mock-chart-container"
+                                style="height:60px; gap:3px; margin-bottom:2rem;">
+                                <!-- Bars injected via JS -->
+                            </div>
+
+                            <!-- Monthly Activity (The main bars) -->
+                            <div class="mock-chart-container months">
+                                <div class="month-col" onclick="AdminSystem.showMonthMetrics('Enero')">
+                                    <div class="mock-bar" style="height: 40%"></div>
+                                    <span class="month-label">Ene</span>
+                                </div>
+                                <div class="month-col" onclick="AdminSystem.showMonthMetrics('Febrero')">
+                                    <div class="mock-bar" style="height: 55%"></div>
+                                    <span class="month-label">Feb</span>
+                                </div>
+                                <div class="month-col" onclick="AdminSystem.showMonthMetrics('Marzo')">
+                                    <div class="mock-bar" style="height: 75%"></div>
+                                    <span class="month-label">Mar</span>
+                                </div>
+                                <div class="month-col" onclick="AdminSystem.showMonthMetrics('Abril')">
+                                    <div class="mock-bar" style="height: 60%"></div>
+                                    <span class="month-label">Abr</span>
+                                </div>
+                                <div class="month-col" onclick="AdminSystem.showMonthMetrics('Mayo')">
+                                    <div class="mock-bar highlighted" style="height: 90%"></div>
+                                    <span class="month-label">May</span>
+                                </div>
+                                <div class="month-col" onclick="AdminSystem.showMonthMetrics('Junio')">
+                                    <div class="mock-bar" style="height: 65%"></div>
+                                    <span class="month-label">Jun</span>
+                                </div>
+                                <div class="month-col" onclick="AdminSystem.showMonthMetrics('Julio')">
+                                    <div class="mock-bar" style="height: 50%"></div>
+                                    <span class="month-label">Jul</span>
+                                </div>
+                            </div>
+
+                            <!-- Clickable Monthly Menu (Hidden until month click) -->
+                            <div id="month-metrics-panel" class="month-metrics-container"
+                                style="display:none; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                                    <h4 style="margin:0; color:var(--primary-red); font-size:1rem;">Opciones para <span
+                                            id="selected-month-name">Mayo</span>:</h4>
+                                    <button class="btn-icon"
+                                        onclick="document.getElementById('month-metrics-panel').style.display='none'"><i
+                                            class="fa-solid fa-times"></i></button>
+                                </div>
+
+                                <div class="month-options-grid">
+                                    <button class="month-opt-btn" onclick="AdminSystem.showMetricDetail('users')">
+                                        <i class="fa-solid fa-users-viewfinder"></i>
+                                        <span>Edades</span>
+                                    </button>
+                                    <button class="month-opt-btn" onclick="AdminSystem.showMetricDetail('traffic')">
+                                        <i class="fa-solid fa-map-location-dot"></i>
+                                        <span>Locación</span>
+                                    </button>
+                                    <button class="month-opt-btn" onclick="AdminSystem.showTopVenue('visited')">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <span>Más Visitado</span>
+                                    </button>
+                                    <button class="month-opt-btn" onclick="AdminSystem.showTopVenue('ranked')">
+                                        <i class="fa-solid fa-ranking-star"></i>
+                                        <span>Más Rankeado</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Locales Tab (As requested in image) -->
+                <div id="tab-locales" class="admin-tab-pane">
+                    <h1 class="admin-page-title">Gestión de Locales</h1>
+                    <p class="admin-page-desc">Gestiona, actualiza y da de alta nuevos comercios en la red RateFlow.</p>
+
+                    <div class="admin-actions-row">
+                        <button class="btn-dark-admin"><i class="fa-solid fa-download"></i> Exportar CSV</button>
+                        <button class="btn-primary-admin" onclick="AdminSystem.showNewVenueForm()"><i
+                                class="fa-solid fa-plus"></i> Nuevo Local</button>
+                    </div>
+
+                    <div class="admin-panel-card" id="venue-form-container" style="display:none; margin-bottom: 2rem;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
+                            <h3 style="margin:0;">Alta de Nuevo Local</h3>
+                            <button class="btn-icon" onclick="AdminSystem.hideNewVenueForm()"><i
+                                    class="fa-solid fa-times"></i></button>
+                        </div>
+                        <form id="new-venue-form" class="admin-grid-form">
+                            <div class="form-group-admin">
+                                <label>Nombre del Local</label>
+                                <input type="text" id="v-name" placeholder="Ej. La Bella Pizza" required>
+                            </div>
+                            <div class="form-group-admin">
+                                <label>Dirección Comercial</label>
+                                <input type="text" id="v-address" placeholder="Ej. Av. Reforma 123" required>
+                            </div>
+                            <div class="form-group-admin">
+                                <label>Categoría</label>
+                                <select id="v-cat">
+                                    <option value="Restaurante">Restaurante</option>
+                                    <option value="Cafetería">Cafetería</option>
+                                    <option value="Bar / Club">Bar / Club</option>
+                                    <option value="Hamburguesería">Hamburguesería</option>
+                                </select>
+                            </div>
+                            <div class="form-group-admin">
+                                <label>Rango de Precios</label>
+                                <select id="v-price">
+                                    <option value="$">$ (Económico)</option>
+                                    <option value="$$">$$ (Medio)</option>
+                                    <option value="$$$">$$$ (Premium)</option>
+                                </select>
+                            </div>
+                            <div class="form-group-admin" style="grid-column: span 2;">
+                                <label>Descripción del Local</label>
+                                <textarea id="v-desc" placeholder="Describe brevemente el local..."
+                                    style="width:100%; min-height:80px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:white; padding:10px; font-family:inherit;"></textarea>
+                            </div>
+                            <div class="form-group-admin">
+                                <label>URL del Logo (Icono)</label>
+                                <input type="text" id="v-logo" placeholder="https://ejemplo.com/logo.png">
+                            </div>
+                            <div class="form-group-admin">
+                                <label>URL del Banner (Hero)</label>
+                                <input type="text" id="v-banner" placeholder="https://ejemplo.com/banner.jpg">
+                            </div>
+                            <div class="form-group-admin">
+                                <label>Plan de Suscripción</label>
+                                <select id="v-plan">
+                                    <option value="basic">Básico (Gratis)</option>
+                                    <option value="pro">Pro Business (Destacado)</option>
+                                </select>
+                            </div>
+                            <div class="form-group-admin">
+                                <label>Horario de Apertura</label>
+                                <input type="text" id="v-hours" placeholder="Ej. 12:00 - 23:00">
+                            </div>
+
+                            <div
+                                style="grid-column: span 2; display:flex; justify-content: flex-end; margin-top: 1.5rem; gap:1rem;">
+                                <button type="button" class="btn-dark-admin"
+                                    onclick="AdminSystem.hideNewVenueForm()">Cancelar</button>
+                                <button type="submit" class="btn-primary-admin">Guardar y Publicar Local</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="admin-panel-card">
+                        <h3>Lista de Gestión</h3>
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE DEL LOCAL</th>
+                                        <th>CATEGORÍA</th>
+                                        <th>PLAN</th>
+                                        <th>STATUS</th>
+                                        <th>EXPORTAR</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-venues-list">
+                                    <!-- Injected -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Tab -->
+                <div id="tab-users" class="admin-tab-pane">
+                    <h1 class="admin-page-title">Administración de Usuarios</h1>
+                    <div class="admin-panel-card">
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>USUARIO</th>
+                                        <th>CORREO</th>
+                                        <th>EDAD</th>
+                                        <th>GÉNERO</th>
+                                        <th>STATUS</th>
+                                        <th>INTERACCIONES</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-users-list">
+                                    <!-- Injected -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Tab -->
+                <div id="tab-reviews" class="admin-tab-pane">
+                    <h1 class="admin-page-title">Moderación de Reseñas</h1>
+                    <div class="admin-panel-card">
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>AUTOR</th>
+                                        <th>LOCAL</th>
+                                        <th>COMENTARIO</th>
+                                        <th>VALORACIÓN</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-reviews-list">
+                                    <!-- Injected -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="tab-analytics" class="admin-tab-pane">
+                    <h1 class="admin-page-title">Métricas por Establecimiento</h1>
+                    <p class="admin-page-desc">Selecciona un local para ver su rendimiento específico, clics y
+                        demografía.</p>
+
+                    <div class="admin-actions-row" style="margin-bottom: 2rem;">
+                        <div class="search-bar-header" style="max-width:300px; background:rgba(255,255,255,0.05);">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Filtrar locales..."
+                                style="color:white; background:transparent; border:none; padding:10px;">
+                        </div>
+                    </div>
+
+                    <div class="admin-panel-card" style="margin-bottom: 2rem;">
+                        <h3>Análisis Individual</h3>
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>LOCAL</th>
+                                        <th>VISITAS MENS.</th>
+                                        <th>RESERVAS</th>
+                                        <th>RESEÑAS</th>
+                                        <th>CONVERSIÓN</th>
+                                        <th>DETALLE</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-analytics-venues-list">
+                                    <!-- Injected venues with analytics stats -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h2 class="admin-page-title" style="font-size: 1.2rem; margin-top: 3rem;">Métricas Globales de
+                        Audiencia</h2>
+                    <div class="admin-grid-2col">
+                        <div class="admin-panel-card">
+                            <h3>Distribución por Género</h3>
+                            <div class="mock-pie-chart">
+                                <div class="pie-visual"></div>
+                                <div class="pie-legend">
+                                    <div class="legend-item"><span class="dot"
+                                            style="background: var(--primary-red);"></span> Hombres (45%)</div>
+                                    <div class="legend-item"><span class="dot" style="background: #333;"></span> Mujeres
+                                        (55%)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin-panel-card">
+                            <h3>Rangos de Edad</h3>
+                            <div class="mock-age-bars">
+                                <div class="age-bar-row"><span>18-24</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="width: 35%;"></div>
+                                    </div> <span>35%</span>
+                                </div>
+                                <div class="age-bar-row"><span>25-34</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill highlighted" style="width: 45%;"></div>
+                                    </div> <span>45%</span>
+                                </div>
+                                <div class="age-bar-row"><span>35-44</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="width: 15%;"></div>
+                                    </div> <span>15%</span>
+                                </div>
+                                <div class="age-bar-row"><span>45+</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="width: 5%;"></div>
+                                    </div> <span>5%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-panel-card" style="margin-top: 2rem;">
+                        <h3>Distribución Geográfica (Zonas)</h3>
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ZONA / BARRIO</th>
+                                        <th>USUARIOS ACTIVOS</th>
+                                        <th>RESERVAS</th>
+                                        <th>TENDENCIA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pocitos</td>
+                                        <td>1,420</td>
+                                        <td>450</td>
+                                        <td style="color:#4CAF50;"><i class="fa-solid fa-arrow-up"></i> +12%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Punta Carretas</td>
+                                        <td>980</td>
+                                        <td>310</td>
+                                        <td style="color:#4CAF50;"><i class="fa-solid fa-arrow-up"></i> +8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Centro</td>
+                                        <td>2,100</td>
+                                        <td>120</td>
+                                        <td style="color:var(--primary-red);"><i class="fa-solid fa-arrow-down"></i> -3%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cordón</td>
+                                        <td>1,650</td>
+                                        <td>520</td>
+                                        <td style="color:#4CAF50;"><i class="fa-solid fa-arrow-up"></i> +25%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Metric Detail Modal -->
+    <div class="admin-modal-overlay" id="metric-detail-modal">
+        <div class="admin-modal-content" style="max-width: 800px; width: 90%;">
+            <div class="admin-modal-header">
+                <div>
+                    <h2 class="admin-modal-title" id="metric-modal-title">Detalle de Métrica</h2>
+                    <p id="metric-modal-subtitle" style="color:#666; font-size:0.9rem; margin:0;">Informe detallado de
+                        rendimiento.</p>
+                </div>
+                <button class="admin-close-modal" id="close-metric-modal-btn">&times;</button>
+            </div>
+
+            <div id="metric-detailed-content" style="margin-bottom: 2rem;">
+                <!-- Dynamically injected information -->
+            </div>
+
+            <div
+                style="display:flex; justify-content: flex-end; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
+                <button class="btn-dark-admin" onclick="AdminSystem.closeMetricModal()">Cerrar</button>
+                <button class="btn-primary-admin" onclick="AdminSystem.exportToPDF()">
+                    <i class="fa-solid fa-file-pdf"></i> Exportar a PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

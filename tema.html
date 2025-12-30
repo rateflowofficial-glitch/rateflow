@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Ranking de la Comunidad | RateFlow Montevideo</title>
+
+  <!-- SEO -->
+  <meta name="description"
+    content="Descubre cuáles son las mejores hamburgueserías de Montevideo según los votos reales de nuestra comunidad. El ranking burger más honesto y transparente.">
+  <meta name="keywords"
+    content="ranking hamburguesas, mejores hamburguesas montevideo, votos comunidad, burguer reviews">
+  <meta name="theme-color" content="#111111">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+
+  <style>
+    /* Specific overrides for the burger voting system to match new cards */
+    .burger-item {
+      /* Reset any conflicting styles if necessary, but the new .card class should handle it */
+      min-height: 450px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rating-container {
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .stars {
+      display: flex;
+      gap: 5px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .star.filled {
+      color: #FFD700;
+    }
+
+    .star.hover {
+      color: #FFED4A;
+    }
+
+    .burger-description {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container" onclick="window.location.href='index.html'" style="cursor:pointer;">
+        <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <span class="logo-text">RateFlow</span>
+      </div>
+
+      <div class="search-bar-header">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Buscar lugares...">
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html" class="nav-item">Explorar</a>
+        <a href="tema.html" class="nav-item">Ranking de la Comunidad</a>
+        <a href="equipo.html" class="nav-item">Quiénes Somos</a>
+      </nav>
+
+      <div class="user-actions">
+        <!-- Injected via scripts.js -->
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="height: 40vh; min-height: 350px;" id="ranking-hero">
+      <div class="hero-background" id="ranking-hero-bg" style="background-image: url('img/bannertema.jpg');"></div>
+      <div class="hero-content">
+        <h1 class="hero-title" id="ranking-hero-title">Ranking de la Comunidad</h1>
+        <p class="hero-subtitle" id="ranking-hero-subtitle">Aquí no hay expertos comprados, solo la opinión de la gente
+          real.</p>
+      </div>
+    </section>
+
+    <!-- Category Selection View -->
+    <section id="category-selection" class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Selecciona una Categoría</h2>
+        <p class="section-subtitle">Explora los rankings más votados por la comunidad.</p>
+      </div>
+
+      <div class="category-grid"
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <!-- Burger Category -->
+        <div class="card premium-card category-card" onclick="RatingSystem.showRanking('burgers')"
+          style="cursor:pointer; transition: transform 0.3s ease;">
+          <div class="card-image" style="background-image: url('img/burguer1.png'); height: 200px;"></div>
+          <div class="card-info">
+            <h3 class="venue-name">Hamburguesas</h3>
+            <p class="category-desc" style="font-size: 0.8rem; color: #888;">Smash, clásicas y gourmet.</p>
+          </div>
+        </div>
+
+        <!-- Pizza Category -->
+        <div class="card premium-card category-card" onclick="RatingSystem.showRanking('pizzas')"
+          style="cursor:pointer; transition: transform 0.3s ease;">
+          <div class="card-image"
+            style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'); height: 200px;">
+          </div>
+          <div class="card-info">
+            <h3 class="venue-name">Pizzas</h3>
+            <p class="category-desc" style="font-size: 0.8rem; color: #888;">Artesanales, napolitanas y más.</p>
+          </div>
+        </div>
+
+        <!-- Sushi Category -->
+        <div class="card premium-card category-card" onclick="RatingSystem.showRanking('sushi')"
+          style="cursor:pointer; transition: transform 0.3s ease;">
+          <div class="card-image"
+            style="background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'); height: 200px;">
+          </div>
+          <div class="card-info">
+            <h3 class="venue-name">Sushi</h3>
+            <p class="category-desc" style="font-size: 0.8rem; color: #888;">Fresco y de autor.</p>
+          </div>
+        </div>
+
+        <!-- Bars Category -->
+        <div class="card premium-card category-card" onclick="RatingSystem.showRanking('bars')"
+          style="cursor:pointer; transition: transform 0.3s ease;">
+          <div class="card-image"
+            style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'); height: 200px;">
+          </div>
+          <div class="card-info">
+            <h3 class="venue-name">Bares & Tragos</h3>
+            <p class="category-desc" style="font-size: 0.8rem; color: #888;">Coctelería y buen ambiente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Leaderboard Section -->
+    <!-- User Leaderboard and Feed Section -->
+    <section class="content-section" style="margin-top: 3rem;">
+      <div class="desktop-grid-2col" style="display:grid; grid-template-columns: 2fr 1fr; gap:3rem;">
+        <!-- Column 1: Leaderboard -->
+        <div>
+          <div class="section-header">
+            <h2 class="section-title">Top <span class="highlight-red">CRÍTICOS</span></h2>
+            <p class="section-subtitle">Los usuarios con más influencia en la comunidad.</p>
+          </div>
+
+          <div class="leaderboard-grid" id="leaderboard-container"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            <!-- Injected by GamificationSystem -->
+            <div style="text-align:center; padding:2rem; color:#666; grid-column: 1/-1;">
+              <i class="fa-solid fa-spinner fa-spin"></i> Cargando líderes...
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Activity Feed -->
+        <aside class="activity-feed-wrapper">
+          <div class="section-header">
+            <h3 class="section-title" style="font-size:1.5rem;">Actividad <span class="highlight-red">RECIENTE</span>
+            </h3>
+          </div>
+          <div id="activity-feed-container"
+            style="background:rgba(255,255,255,0.03); border-radius:12px; padding:1.5rem; margin-top:2rem; min-height:400px; max-height:600px; overflow-y:auto; border:1px solid rgba(255,255,255,0.05);">
+            <!-- Injected by CommunitySystem -->
+            <div style="text-align:center; color:#555; padding-top:2rem;"><i class="fa-solid fa-spinner fa-spin"></i>
+              Cargando feed...</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Ranking View (Hidden by default) -->
+    <div id="ranking-view" style="display: none;">
+      <div style="padding: 2rem 5% 0 5%;">
+        <button class="btn-outline pill small" onclick="RatingSystem.hideRanking()" style="margin-bottom: 2rem;">
+          <i class="fa-solid fa-arrow-left"></i> Volver a categorías
+        </button>
+      </div>
+
+      <!-- Introduction -->
+      <section class="content-section" style="padding-top:0;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title" id="ranking-view-title">El Ranking Definitivo</h2>
+            <p class="section-subtitle" id="ranking-view-subtitle" style="max-width: 800px;">
+              Analizadas por expertos en sabor y calidad.
+            </p>
+          </div>
+        </div>
+
+        <!-- Items Container -->
+        <div id="burgers-container" class="cards-scroller">
+          <!-- Dynamically populated by RatingSystem.showRanking -->
+          <div style="padding: 5rem; text-align: center; width: 100%;">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary-red);"></i>
+          </div>
+        </div>
+
+        <!-- Community Hub -->
+        <section id="community-section" class="community-hub" style="margin-top: 5rem;">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Comunidad <span class="highlight-red">VERIFICADA</span></h2>
+              <p class="section-subtitle">Lo que dicen otros expertos como tú.</p>
+            </div>
+          </div>
+
+          <div class="review-compose card" style="padding: 2rem; margin-bottom: 2rem; flex: none;">
+            <h4 style="margin-bottom: 1rem;">Deja tu reseña</h4>
+            <textarea id="community-review-input" placeholder="Comparte tu experiencia..."
+              style="width: 100%; min-height: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; padding: 1rem; margin-bottom: 1rem; font-family: inherit; resize: vertical;"></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div class="select-burger-mini">
+                <select id="review-burger-select"
+                  style="background: var(--dark-surface-elevated); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 5px;">
+                  <!-- Options populated dynamically -->
+                </select>
+              </div>
+              <button class="btn-search" onclick="CommunitySystem.postReview()">Publicar Reseña</button>
+            </div>
+          </div>
+
+          <div id="community-reviews-list" class="reviews-container"
+            style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- Reviews will be injected by JS -->
+          </div>
+        </section>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-col brand-col">
+      <div class="logo-container">
+        <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <span class="logo-text">RateFlow</span>
+      </div>
+      <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad. Vive experiencias
+        únicas.</p>
+    </div>
+
+    <div class="footer-col">
+      <h5>DESCUBRIR</h5>
+      <a href="#">Tendencias</a>
+      <a href="#">Cerca de mí</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>COMUNIDAD</h5>
+      <a href="business.html">Para Negocios</a>
+      <a href="#">Ayuda</a>
+      <a href="blog.html">Blog</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>SÍGUENOS</h5>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <div>&copy; 2024 RateFlow Inc.</div>
+    <div>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="terminos.html">Términos</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
+  </div>
+
+  <!-- GunDB P2P -->
+  <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+
+  <script src="scripts.js" defer></script>
+</body>
+
+</html>

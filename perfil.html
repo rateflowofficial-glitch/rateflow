@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - RateFlow</title>
+    <meta name="theme-color" content="#111111">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/c9543d42a5.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+</head>
+
+<body>
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container" onclick="window.location.href='index.html'" style="cursor:pointer;">
+                <div class="logo-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+
+            <div class="search-bar-header">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar lugares...">
+            </div>
+
+            <nav class="main-nav" id="myTopnav">
+                <a href="index.html" class="nav-item">Explorar</a>
+                <a href="tema.html" class="nav-item">Rankings</a>
+                <a href="tema.html" class="nav-item">Comunidad</a>
+            </nav>
+
+            <div class="user-actions" id="header-user-actions">
+                <!-- Injected via scripts.js -->
+            </div>
+        </div>
+    </header>
+
+    <main class="profile-container" style="max-width:1200px; margin:0 auto; padding:40px 25px;">
+        <!-- User Hero -->
+        <section class="profile-hero">
+            <div class="profile-avatar-container">
+                <img src="" id="prof-avatar-img" alt="Profile" class="profile-avatar-large">
+                <div class="profile-verify-badge">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+            </div>
+
+            <div class="profile-main-info">
+                <div class="profile-name-row">
+                    <h1 class="profile-name-text" id="prof-name">Cargando...</h1>
+                    <span class="profile-verified-tag">VERIFICADO</span>
+                </div>
+                <p class="profile-handle-bio">
+                    <span id="prof-handle">@username</span> • <span id="prof-bio">Explorador gastronómico & Crítico de
+                        vida nocturna</span>
+                </p>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="prof-followers-count">0</span>
+                        <span class="stat-label">Seguidores</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="prof-following-count">0</span>
+                        <span class="stat-label">Seguidos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="prof-review-count">0</span>
+                        <span class="stat-label">Reseñas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Listas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button class="btn-edit-trigger" id="edit-profile-btn">
+                    <i class="fa-solid fa-pen-to-square"></i> Editar Perfil
+                </button>
+                <button class="btn-icon-square" id="share-profile-btn"><i class="fa-solid fa-share-nodes"></i></button>
+            </div>
+
+        </section>
+
+        <!-- Profile Evolution -->
+        <section class="profile-evolution">
+            <div class="evolution-header">
+                <span class="evolution-title">Rango en la Comunidad</span>
+                <span class="evolution-level" id="prof-level">CARGANDO...</span>
+            </div>
+            <div class="evolution-progress-bg">
+                <div class="evolution-progress-fill" id="prof-progress-bar"></div>
+            </div>
+            <p class="evolution-next-hint">Sigue votando para subir de rango y desbloquear insignias exclusivas.</p>
+        </section> <!-- Tabs -->
+        <nav class="profile-tabs">
+            <div class="profile-tab active" data-tab="reviews">Reseñas Rankeadas</div>
+            <div class="profile-tab" data-tab="achievements">Logros</div>
+            <div class="profile-tab" data-tab="photos">Fotos</div>
+            <div class="profile-tab" data-tab="lists">Listas Guardadas</div>
+            <div class="profile-tab" data-tab="info">Información</div>
+        </nav>
+
+        <!-- Tab Content: Reviews -->
+        <div class="tab-content active" id="tab-reviews">
+            <div class="review-grid-premium" id="profile-reviews-grid">
+                <!-- Injected via profileSystem.renderReviews() -->
+            </div>
+        </div>
+
+        <!-- Tab Content: Achievements -->
+        <div class="tab-content" id="tab-achievements" style="display:none;">
+            <div class="badges-grid" id="badges-container"
+                style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem; padding-top:1rem;">
+                <!-- Injected via GamificationSystem.renderBadges() -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-col brand-col">
+            <div class="logo-container">
+                <div class="logo-icon small"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <span class="logo-text">RateFlow</span>
+            </div>
+            <p>La plataforma definitiva para descubrir y reservar en los mejores lugares de tu ciudad. Vive experiencias
+                únicas.</p>
+        </div>
+
+        <div class="footer-col">
+            <h5>DESCUBRIR</h5>
+            <a href="#">Tendencias</a>
+            <a href="tema.html">Ranking</a>
+            <a href="#">Cerca de mí</a>
+        </div>
+
+        <div class="footer-col">
+            <h5>COMUNIDAD</h5>
+            <a href="business.html">Para Negocios</a>
+            <a href="#">Ayuda</a>
+            <a href="blog.html">Blog</a>
+        </div>
+
+        <div class="footer-col">
+            <h5>SÍGUENOS</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div>&copy; 2024 RateFlow Inc.</div>
+        <div>
+            <a href="privacidad.html">Privacidad</a>
+            <a href="terminos.html">Términos</a>
+            <a href="cookies.html">Cookies</a>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="edit-profile-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Editar Perfil</h2>
+                <button class="close-modal" id="close-modal-btn">&times;</button>
+            </div>
+            <form id="edit-profile-form">
+                <div class="form-group">
+                    <label for="edit-name">Nombre Completo</label>
+                    <input type="text" id="edit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-avatar">Cambiar Foto de Perfil</label>
+                    <input type="file" id="edit-avatar" accept="image/*" class="file-input-custom">
+                    <small style="color:#888; font-size:0.75rem;">Sube una imagen desde tu computadora.</small>
+                </div>
+                <button type="submit" class="btn-save-profile">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- GunDB P2P -->
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+
+    <script src="scripts.js" defer></script>
+</body>
+
+</html>
