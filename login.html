@@ -178,12 +178,17 @@
                 if (ack.err) {
                     alert('Error: ' + ack.err);
                 } else {
-                    // Check role (simplified for now, admin role in p2p requires more logic)
-                    // For now redirect to rankings
-                    window.location.href = 'tema.html';
+                    // Success - gun.on('auth') will handle redirection based on role
+                    // Just show success message while auth completes
+                    console.log('Login exitoso, redirigiendo...');
                 }
             } catch (err) {
-                alert('Error al iniciar sesión: ' + (err.message || err));
+                const errorMsg = err.message || err;
+                if (errorMsg.includes('Wrong user or password') || errorMsg.includes('User does not exist')) {
+                    alert('❌ Usuario no encontrado en la red P2P.\n\n💡 Si tenías una cuenta anterior, necesitas REGISTRARTE DE NUEVO.\n\nPara ser admin, usa un username que empiece con ADMIN_\nEjemplo: ADMIN_tu_nombre');
+                } else {
+                    alert('Error al iniciar sesión: ' + errorMsg);
+                }
             }
         }
     </script>
